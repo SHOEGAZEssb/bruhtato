@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WaveSet" load_steps=4 format=3 uid="uid://be6ykal3ortph"]
+
+[ext_resource type="Script" uid="uid://5h58eqme1pd0" path="res://Scripts/Enemies/WaveSet.cs" id="1_071vk"]
+[ext_resource type="Resource" uid="uid://be2xuy8yammt5" path="res://Resources/Enemies/Waves/Wave1.tres" id="1_lfng4"]
+[ext_resource type="Resource" uid="uid://t0d2cqbugmf5" path="res://Resources/Enemies/Waves/Wave2.tres" id="2_jmt6o"]
+
+[resource]
+script = ExtResource("1_071vk")
+Waves = Array[Object]([ExtResource("1_lfng4"), ExtResource("2_jmt6o")])
+metadata/_custom_type_script = "uid://5h58eqme1pd0"

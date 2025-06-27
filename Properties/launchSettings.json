@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Bruhtato": {
+      "commandName": "Project"
+    },
+    "Debug via Godot": {
+      "commandName": "Executable",
+      "executablePath": "E:\\Stuff\\Gamedev\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}

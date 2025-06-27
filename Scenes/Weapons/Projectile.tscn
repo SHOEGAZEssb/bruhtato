@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dg17id3lssnin"]
+
+[ext_resource type="Texture2D" uid="uid://demlug5k2ex2c" path="res://Sprites/Weapons/Projectile_PH.png" id="1_g6ral"]
+[ext_resource type="Script" uid="uid://b4h74ft0b1twq" path="res://Scripts/Weapons/Projectile.cs" id="1_ytq58"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytq58"]
+size = Vector2(50, 20)
+
+[node name="Projectile" type="Area2D"]
+script = ExtResource("1_ytq58")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ytq58")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g6ral")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

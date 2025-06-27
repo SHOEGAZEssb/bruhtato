@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://x4f00ce61lrm"]
+
+[ext_resource type="Texture2D" uid="uid://ungpq5g0lbd4" path="res://Sprites/Items/OrangeJuice.png" id="1_mc1sl"]
+[ext_resource type="Script" uid="uid://clg813o67bw2o" path="res://Scripts/Stats/StatModifierResource.cs" id="1_vh2ft"]
+[ext_resource type="Script" uid="uid://brlxqdsfrgb7b" path="res://Scripts/Items/ItemData.cs" id="1_xylli"]
+
+[sub_resource type="Resource" id="Resource_mc1sl"]
+script = ExtResource("1_vh2ft")
+Type = 0
+Value = 3.0
+StatName = "HP"
+metadata/_custom_type_script = "uid://clg813o67bw2o"
+
+[resource]
+script = ExtResource("1_xylli")
+ItemName = "Orange Juice"
+Description = "Its Orange Juice!"
+Icon = ExtResource("1_mc1sl")
+Cost = 10
+Rarity = 0
+Modifiers = Array[Object]([SubResource("Resource_mc1sl")])
+metadata/_custom_type_script = "uid://brlxqdsfrgb7b"

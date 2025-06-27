@@ -1,0 +1,71 @@
+[gd_scene load_steps=16 format=3 uid="uid://b7yosbt4wro3x"]
+
+[ext_resource type="Script" uid="uid://swj0vxdlsmsv" path="res://Scripts/Player/Player.cs" id="1_gntrk"]
+[ext_resource type="Texture2D" uid="uid://cym5lgy1gors1" path="res://Sprites/Player_PH.png" id="1_rpqav"]
+[ext_resource type="PackedScene" uid="uid://bxkxqgm33em6c" path="res://Scenes/Weapons/Weapon.tscn" id="2_ksbbd"]
+[ext_resource type="Script" uid="uid://bx8pf6d375npd" path="res://Scripts/Player/PlayerMovement.cs" id="3_dewec"]
+[ext_resource type="Resource" uid="uid://c4gjqsks28n3" path="res://Resources/Weapons/Pistol.tres" id="3_glx4g"]
+[ext_resource type="Script" uid="uid://djckl13ojds6i" path="res://Scripts/CameraLimiter.cs" id="4_dewec"]
+[ext_resource type="Script" uid="uid://dhuogrrbikaq0" path="res://Scripts/Weapons/WeaponManager.cs" id="5_megsn"]
+[ext_resource type="Script" uid="uid://42h7bgtu7c5e" path="res://Scripts/Components/HealthComponent.cs" id="7_52ee3"]
+[ext_resource type="Script" uid="uid://t4akeqogjve4" path="res://Scripts/Player/PlayerHurtbox.cs" id="8_bhhdu"]
+[ext_resource type="Script" uid="uid://mixjemfbk1x6" path="res://Scripts/Player/ExpMoneyComponent.cs" id="10_ksbbd"]
+[ext_resource type="Script" uid="uid://l0dbmr4c7e5k" path="res://Scripts/Player/MoneyCollector.cs" id="10_yoq75"]
+[ext_resource type="Script" uid="uid://tbcqd0o2hxjy" path="res://Scripts/Player/InventoryComponent.cs" id="11_glx4g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kyqiw"]
+radius = 60.407
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_52ee3"]
+radius = 59.3043
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ksbbd"]
+radius = 94.0053
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_gntrk")
+HealthComponentPath = NodePath("HealthComponent")
+ExpMoneyComponentPath = NodePath("ExpMoneyComponent")
+InventoryComponentPath = NodePath("InventoryComponent")
+WeaponManagerPath = NodePath("WeaponManager")
+WeaponScene = ExtResource("2_ksbbd")
+StartingWeapons = Array[Object]([ExtResource("3_glx4g"), ExtResource("3_glx4g")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rpqav")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kyqiw")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("4_dewec")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("8_bhhdu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_52ee3")
+
+[node name="WeaponManager" type="Node2D" parent="."]
+script = ExtResource("5_megsn")
+
+[node name="PlayerMovement" type="Node" parent="."]
+script = ExtResource("3_dewec")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_52ee3")
+
+[node name="ExpMoneyComponent" type="Node" parent="."]
+script = ExtResource("10_ksbbd")
+
+[node name="InventoryComponent" type="Node" parent="."]
+script = ExtResource("11_glx4g")
+
+[node name="MoneyCollector" type="Area2D" parent="."]
+collision_mask = 16
+script = ExtResource("10_yoq75")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoneyCollector"]
+shape = SubResource("CircleShape2D_ksbbd")

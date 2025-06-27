@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://c4gjqsks28n3"]
+
+[ext_resource type="Script" uid="uid://d4gtv81vh6ppv" path="res://Scripts/Weapons/WeaponData.cs" id="1_2uslf"]
+[ext_resource type="Texture2D" uid="uid://dempc5e2uawl0" path="res://Sprites/Weapons/Pistol_PH.png" id="1_uuj3x"]
+
+[resource]
+script = ExtResource("1_2uslf")
+WeaponName = ""
+Level = 1
+BaseDamage = 5.0
+FireRate = 1.0
+Range = 250.0
+Penetrate = 1
+Sprite = ExtResource("1_uuj3x")
+metadata/_custom_type_script = "uid://d4gtv81vh6ppv"

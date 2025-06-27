@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://c28io25cd2aog"]
+
+[ext_resource type="Script" uid="uid://b5kuyus4rq5gx" path="res://Scripts/UI/ShopUI.cs" id="1_bpl7i"]
+[ext_resource type="PackedScene" uid="uid://c16d308rtcso3" path="res://Scenes/UI/ShopItemUI.tscn" id="2_wb0up"]
+[ext_resource type="PackedScene" uid="uid://prhiw6j5cgi1" path="res://Scenes/UI/StatOverview.tscn" id="3_jp4kd"]
+
+[node name="ShopUI" type="Control" node_paths=PackedStringArray("ShopGrid")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bpl7i")
+CloseShopButtonPath = NodePath("MarginContainer/VBoxContainer/Button")
+ShopItemUIScene = ExtResource("2_wb0up")
+ShopGrid = NodePath("MarginContainer/VBoxContainer/HSplitContainer/GridContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 8.0
+columns = 4
+
+[node name="StatOverview" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource("3_jp4kd")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Start Next Wave"

@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0ehx1pog18v5"]
+
+[ext_resource type="Texture2D" uid="uid://2wnujtajwrx1" path="res://Sprites/Enemy_PH.png" id="1_iiq2q"]
+[ext_resource type="Script" uid="uid://cgorwy6h8c7x1" path="res://Scripts/Enemies/EnemyBase.cs" id="1_srcxp"]
+[ext_resource type="Resource" uid="uid://bjenvl8yuvwwo" path="res://Resources/Enemies/BasicEnemy.tres" id="2_m1s7c"]
+[ext_resource type="Script" uid="uid://co853qnnuup2e" path="res://Scripts/Enemies/EnemyMovementBase.cs" id="2_p6c21"]
+[ext_resource type="PackedScene" uid="uid://btpfji2btrwjc" path="res://Scenes/Pickups/MoneyPickup.tscn" id="3_aahyb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p6c21"]
+radius = 29.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_srcxp"]
+radius = 61.0082
+
+[node name="EnemyBase" type="CharacterBody2D" groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_srcxp")
+Data = ExtResource("2_m1s7c")
+MoneyPickupScene = ExtResource("3_aahyb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_iiq2q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_p6c21")
+
+[node name="EnemyMovement" type="Node" parent="."]
+script = ExtResource("2_p6c21")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_srcxp")

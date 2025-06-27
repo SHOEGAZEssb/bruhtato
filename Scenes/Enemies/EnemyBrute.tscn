@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcmo4cx50tk2r"]
+
+[ext_resource type="Script" uid="uid://cgorwy6h8c7x1" path="res://Scripts/Enemies/EnemyBase.cs" id="1_rf4ta"]
+[ext_resource type="Texture2D" uid="uid://2wnujtajwrx1" path="res://Sprites/Enemy_PH.png" id="2_ctyna"]
+[ext_resource type="Script" uid="uid://co853qnnuup2e" path="res://Scripts/Enemies/EnemyMovementBase.cs" id="3_jtdir"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p6c21"]
+radius = 22.2036
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hlcxg"]
+radius = 59.9083
+
+[node name="EnemyBrute" type="CharacterBody2D" groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_rf4ta")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ctyna")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_p6c21")
+
+[node name="EnemyMovement" type="Node" parent="."]
+script = ExtResource("3_jtdir")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_hlcxg")

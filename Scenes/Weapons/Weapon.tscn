@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxkxqgm33em6c"]
+
+[ext_resource type="Script" uid="uid://dyimxlfjm1clf" path="res://Scripts/Weapons/Weapon.cs" id="1_mvueu"]
+[ext_resource type="Resource" uid="uid://c4gjqsks28n3" path="res://Resources/Weapons/Pistol.tres" id="2_8gj08"]
+[ext_resource type="PackedScene" uid="uid://dg17id3lssnin" path="res://Scenes/Weapons/Projectile.tscn" id="2_27vj6"]
+[ext_resource type="Texture2D" uid="uid://dempc5e2uawl0" path="res://Sprites/Weapons/Pistol_PH.png" id="4_hj41p"]
+
+[node name="Weapon" type="Node2D"]
+z_index = 1
+script = ExtResource("1_mvueu")
+Data = ExtResource("2_8gj08")
+ProjectileScene = ExtResource("2_27vj6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_hj41p")
+
+[node name="ShootPoint" type="Marker2D" parent="."]
+position = Vector2(-11, -8)
+
+[node name="FireTimer" type="Timer" parent="."]

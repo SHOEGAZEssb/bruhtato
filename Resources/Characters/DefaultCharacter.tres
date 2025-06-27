@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=2 format=3 uid="uid://hu2rm8j5mjrf"]
+
+[ext_resource type="Script" uid="uid://cx7epde3mygey" path="res://Scripts/Player/CharacterData.cs" id="1_scwxa"]
+
+[resource]
+script = ExtResource("1_scwxa")
+MoveSpeed = 300.0
+Damage = 10.0
+AttackSpeed = 1.0
+HP = 15.0
+Armor = 0.0
+EnemyDamage = 0.0
+EnemyHealth = 0.0
+metadata/_custom_type_script = "uid://cx7epde3mygey"

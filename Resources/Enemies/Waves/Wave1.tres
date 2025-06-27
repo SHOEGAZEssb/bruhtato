@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WaveData" load_steps=3 format=3 uid="uid://be2xuy8yammt5"]
+
+[ext_resource type="Script" uid="uid://dsynvyv8cw4a7" path="res://Scripts/Enemies/WaveData.cs" id="1_8cwix"]
+[ext_resource type="PackedScene" uid="uid://c0ehx1pog18v5" path="res://Scenes/Enemies/EnemyBase.tscn" id="1_db85h"]
+
+[resource]
+script = ExtResource("1_8cwix")
+EnemyTypes = Array[PackedScene]([ExtResource("1_db85h")])
+EnemyCount = 5
+TimeBetweenSpawns = 0.4
+metadata/_custom_type_script = "uid://dsynvyv8cw4a7"
