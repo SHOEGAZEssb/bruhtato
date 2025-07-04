@@ -26,6 +26,12 @@ public partial class EnemyBase : CharacterBody2D
     _currentHP = Data.MaxHP;
   }
 
+  public void ForceRemove()
+  {
+    DropMoney();
+    QueueFree(); // You could play an animation first if needed
+  }
+
   public void TakeDamage(float amount)
   {
     _currentHP -= amount;
@@ -53,11 +59,12 @@ public partial class EnemyBase : CharacterBody2D
       pickup.Initialize(1); // each worth 1
       pickup.GlobalPosition = GlobalPosition;
 
+      // normal scattered drop
       var angle = (float)GD.RandRange(0, Mathf.Tau); // 0 to 2π
       var force = (float)GD.RandRange(150, 300);      // tweak as needed
       var velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * force;
 
-      pickup.ApplyImpulse(velocity); // you'll add this method below
+      pickup.ApplyImpulse(velocity);
 
       GetTree().CurrentScene.CallDeferred("add_child", pickup);
     }

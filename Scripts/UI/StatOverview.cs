@@ -10,7 +10,7 @@ public partial class StatOverview : Panel
 
   public override void _Ready()
   {
-    GameManager.Instance.RunStats.StatsChanged += () => UpdateStats();
+    GameManager.Instance.RunStats.StatsChanged += (int statType) => UpdateStats();
     _container = GetNode<VBoxContainer>(StatContainerPath);
     UpdateStats();
   }

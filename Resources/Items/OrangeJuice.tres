@@ -8,7 +8,7 @@
 script = ExtResource("1_vh2ft")
 Type = 0
 Value = 3.0
-StatName = "HP"
+StatType = 1
 metadata/_custom_type_script = "uid://clg813o67bw2o"
 
 [resource]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bholeyg1berun"]
+
+[ext_resource type="Script" uid="uid://by4rwatubcl55" path="res://Scripts/Pickups/MoneyPool.cs" id="1_k1rj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8rm2"]
+size = Vector2(46, 38)
+
+[node name="MoneyPoolAnchor" type="Node2D"]
+
+[node name="Control" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 2
+text = "0000"
+
+[node name="MoneyPool" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+monitoring = false
+script = ExtResource("1_k1rj8")
+LabelPath = NodePath("../Control/Label")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoneyPool"]
+position = Vector2(23, 18)
+shape = SubResource("RectangleShape2D_s8rm2")

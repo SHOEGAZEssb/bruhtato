@@ -18,6 +18,11 @@ public partial class HealthComponent : Node
   {
     MaxHP = hp;
     CurrentHP = hp;
+    GameManager.Instance.RunStats.StatsChanged += (int stat) =>
+    {
+      if ((StatType)stat == StatType.HP)
+        SetMaxHP(GameManager.Instance.RunStats.GetStat(StatType.HP));
+    };
     EmitSignal(SignalName.HealthChanged, CurrentHP, MaxHP);
   }
 
@@ -33,7 +38,6 @@ public partial class HealthComponent : Node
 
     EmitSignal(SignalName.HealthChanged, CurrentHP, MaxHP);
   }
-
 
   public void TakeDamage(float amount)
   {

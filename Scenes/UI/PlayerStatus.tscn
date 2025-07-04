@@ -64,7 +64,6 @@ layout_mode = 2
 theme_override_styles/background = ExtResource("2_hqxkf")
 theme_override_styles/fill = SubResource("StyleBoxFlat_s0ng1")
 max_value = 1.0
-value = 1.0
 show_percentage = false
 
 [node name="MoneyDisplay" type="HBoxContainer" parent="VBoxContainer"]

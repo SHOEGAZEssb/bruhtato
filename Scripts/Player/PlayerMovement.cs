@@ -42,7 +42,7 @@ public partial class PlayerMovement : Node
 
     input = input.Normalized();
 
-    _body.Velocity = input * _stats.GetStat("MoveSpeed");
+    _body.Velocity = input * _stats.GetStat(StatType.MoveSpeed);
     _body.MoveAndSlide();
 
     // clamp the position to arena bounds
@@ -53,6 +53,5 @@ public partial class PlayerMovement : Node
     clamped.Y = Mathf.Clamp(clamped.Y, bounds.Position.Y + _clampMargin, bounds.End.Y - _clampMargin);
 
     _body.Position = clamped;
-
   }
 }

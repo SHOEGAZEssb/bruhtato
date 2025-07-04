@@ -9,8 +9,11 @@ public partial class WaveSpawner : Node
   [Export] public WaveSet WaveConfig;
   [Export] public NodePath WaveStatusPath;
 
-  [Signal]
-  public delegate void WaveEndedEventHandler();
+  [Signal] public delegate void WaveStartedEventHandler(int wave);
+
+  [Signal] public delegate void WaveCleanupEventHandler();
+
+  [Signal] public delegate void WaveEndedEventHandler();
 
   public int CurrentWave { get; private set; } = 0;
 
@@ -28,11 +31,19 @@ public partial class WaveSpawner : Node
     AddChild(_waveDurationTimer);
 
     _spawnTimer.Timeout += SpawnEnemy;
-    _waveDurationTimer.Timeout += EndWave;
+    _waveDurationTimer.Timeout += StartWaveCleanup;
 
     _waveUI = GetNode<WaveStatus>(WaveStatusPath);
 
+    GameManager.Instance.WaveSpawner = this;
+
+    CallDeferred(nameof(SetupSignals));
     StartWave(0);
+  }
+
+  private void SetupSignals()
+  {
+    GameManager.Instance.MoneyPool.MoneyPoolPickupCompleted += () => EndWave();
   }
 
   public void StartWave(int index)
@@ -53,6 +64,8 @@ public partial class WaveSpawner : Node
     _spawnTimer.Start();
 
     _waveDurationTimer.Start(_currentWave.Duration);
+
+    EmitSignal(SignalName.WaveStarted, index);
   }
 
   private void SpawnEnemy()
@@ -63,12 +76,49 @@ public partial class WaveSpawner : Node
     GetTree().CurrentScene.AddChild(enemy);
   }
 
-  private void EndWave()
+  private void StartWaveCleanup()
   {
     _spawnTimer.Stop();
-    GD.Print($"Wave {CurrentWave} ended.");
+    RemoveAllEnemies();
+    CallDeferred(nameof(CollectLeftoverMoney));
+    GD.Print($"Wave {CurrentWave} cleanup.");
 
+    EmitSignal(SignalName.WaveCleanup);
+  }
+
+  private void EndWave()
+  {
+    // todo: level up, picked up chests etc
+    GD.Print($"Wave {CurrentWave} ended.");
     EmitSignal(SignalName.WaveEnded);
+  }
+
+  private void RemoveAllEnemies()
+  {
+    var tree = GetTree();
+    foreach (var enemyObj in tree.GetNodesInGroup("Enemies"))
+    {
+      if (enemyObj is EnemyBase enemy)
+      {
+        enemy.ForceRemove();
+      }
+    }
+  }
+
+  private void CollectLeftoverMoney()
+  {
+    var tree = GetTree();
+    int pickupCount = 0;
+    foreach (var enemyObj in tree.GetNodesInGroup("Pickups"))
+    {
+      if (enemyObj is MoneyPickup m)
+      {
+        m.FlyTo(GameManager.Instance.MoneyPool, true);
+        pickupCount++;
+      }
+    }
+
+    GameManager.Instance.MoneyPool.PickupCount = pickupCount;
   }
 
   private Vector2 GetRandomSpawnPoint()

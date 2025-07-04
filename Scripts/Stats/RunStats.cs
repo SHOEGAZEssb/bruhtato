@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public enum StatType
 {
+  Undefined,
+
   HP,
   MoveSpeed,
   Damage,
@@ -25,12 +27,12 @@ public enum StatType
 /// </summary>
 public partial class RunStats : Node
 {
-  [Signal] public delegate void StatsChangedEventHandler();
+  [Signal] public delegate void StatsChangedEventHandler(int statType);
 
   [Export] public CharacterData CharacterPreset;
 
-  public Dictionary<string, Stat> Stats => _stats;
-  private readonly Dictionary<string, Stat> _stats = new();
+  public Dictionary<StatType, Stat> Stats => _stats;
+  private readonly Dictionary<StatType, Stat> _stats = new();
 
   public override void _Ready()
   {
@@ -39,40 +41,29 @@ public partial class RunStats : Node
     if (CharacterPreset != null)
     {
       // main
-      _stats["HP"] = new Stat(CharacterPreset.HP);
-      _stats["MoveSpeed"] = new Stat(CharacterPreset.MoveSpeed);
-      _stats["Damage"] = new Stat(CharacterPreset.Damage);
-      _stats["AttackSpeed"] = new Stat(CharacterPreset.AttackSpeed);
+      _stats[StatType.HP] = new Stat(CharacterPreset.HP);
+      _stats[StatType.MoveSpeed] = new Stat(CharacterPreset.MoveSpeed);
+      _stats[StatType.Damage] = new Stat(CharacterPreset.Damage);
+      _stats[StatType.AttackSpeed] = new Stat(CharacterPreset.AttackSpeed);
 
       // enemies
-      _stats["EnemyDamage"] = new Stat(CharacterPreset.EnemyDamage);
-      _stats["EnemyHealth"] = new Stat(CharacterPreset.EnemyHealth);
+      _stats[StatType.EnemyDamage] = new Stat(CharacterPreset.EnemyDamage);
+      _stats[StatType.EnemyHealth] = new Stat(CharacterPreset.EnemyHealth);
     }
     else
       GD.PrintErr("No CharacterPreset defined");
   }
 
-  public void AddModifier(string statName, StatModifier mod)
+  public void AddModifier(StatType statType, StatModifier mod)
   {
-    if (_stats.TryGetValue(statName, out var stat))
+    if (_stats.TryGetValue(statType, out var stat))
       stat.AddModifier(mod);
 
-    EmitSignal(SignalName.StatsChanged);
+    EmitSignal(SignalName.StatsChanged, (int)statType);
   }
 
-  public void AddModifiers(Dictionary<string, StatModifier> mods)
+  public float GetStat(StatType statType)
   {
-    foreach (var kvp in mods)
-    {
-      if (_stats.TryGetValue(kvp.Key, out var stat))
-        stat.AddModifier(kvp.Value);
-    }
-
-    EmitSignal(SignalName.StatsChanged);
-  }
-
-  public float GetStat(string statName)
-  {
-    return _stats.TryGetValue(statName, out var stat) ? stat.GetValue() : 0f;
+    return _stats.TryGetValue(statType, out var stat) ? stat.GetValue() : 0f;
   }
 }

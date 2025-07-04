@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dv2r6fo25o43k"]
+[gd_scene load_steps=14 format=3 uid="uid://dv2r6fo25o43k"]
 
 [ext_resource type="Script" uid="uid://bmca6xb88ann4" path="res://Scripts/Arena.cs" id="1_0ds76"]
 [ext_resource type="PackedScene" uid="uid://b7yosbt4wro3x" path="res://Scenes/Player.tscn" id="1_2gd4f"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c28io25cd2aog" path="res://Scenes/UI/ShopUI.tscn" id="7_7dk6h"]
 [ext_resource type="Script" uid="uid://ck4cesrk4vdg1" path="res://Scripts/Enemies/WaveSpawner.cs" id="7_bugre"]
 [ext_resource type="Resource" uid="uid://be6ykal3ortph" path="res://Resources/Enemies/Waves/WaveSet.tres" id="8_bugre"]
+[ext_resource type="PackedScene" uid="uid://bholeyg1berun" path="res://Scenes/Pickups/MoneyPoolAnchor.tscn" id="13_q3i8e"]
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_0ds76")
@@ -72,3 +73,6 @@ patch_margin_bottom = 1
 script = ExtResource("7_bugre")
 WaveConfig = ExtResource("8_bugre")
 WaveStatusPath = NodePath("../CanvasLayer/WaveStatus")
+
+[node name="MoneyPoolAnchor" parent="." instance=ExtResource("13_q3i8e")]
+position = Vector2(14, 120)

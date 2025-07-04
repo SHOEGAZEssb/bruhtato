@@ -15,6 +15,10 @@ public partial class GameManager : Node
 
   public ArenaBounds ArenaBounds { get; set; }
 
+  public MoneyPool MoneyPool { get; set; }
+
+  public WaveSpawner WaveSpawner { get; set; }
+
   public override void _EnterTree()
   {
     Instance = this;

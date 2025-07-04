@@ -23,7 +23,7 @@ public partial class Player : CharacterBody2D
     GameManager.Instance.Player = this;
 
     HealthComponent = GetNode<HealthComponent>(HealthComponentPath);
-    HealthComponent.Initialize(GameManager.Instance.RunStats.GetStat("HP"));
+    HealthComponent.Initialize(GameManager.Instance.RunStats.GetStat(StatType.HP));
 
     ExpMoneyComponent = GetNode<ExpMoneyComponent>(ExpMoneyComponentPath);
     InventoryComponent = GetNode<InventoryComponent>(InventoryComponentPath);

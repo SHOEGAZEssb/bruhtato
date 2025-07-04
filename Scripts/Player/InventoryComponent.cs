@@ -25,7 +25,7 @@ public partial class InventoryComponent : Node
       var stats = GameManager.Instance.RunStats;
       foreach (var mod in item.Modifiers)
       {
-        stats.AddModifier(mod.StatName, new StatModifier(mod.Value, mod.Type));
+        stats.AddModifier(mod.StatType, new StatModifier(mod.Value, mod.Type));
       }
     }
 

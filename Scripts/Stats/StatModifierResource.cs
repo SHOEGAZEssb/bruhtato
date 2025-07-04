@@ -8,5 +8,5 @@ public partial class StatModifierResource : Resource
 {
   [Export] public ModifierType Type = ModifierType.Flat;
   [Export] public float Value = 0f;
-  [Export] public string StatName = "";
+  [Export] public StatType StatType = StatType.Undefined;
 }
