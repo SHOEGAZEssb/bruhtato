@@ -7,7 +7,16 @@ public partial class MoneyPool : Area2D
 {
   [Signal] public delegate void MoneyPoolPickupCompletedEventHandler();
 
-  public int CollectedMoney { get; private set; }
+  public int CollectedMoney
+  {
+    get => _collectedMoney;
+    private set
+    {
+      _collectedMoney = value;
+      _label.Text = CollectedMoney.ToString();
+    }
+  }
+  private int _collectedMoney;
 
   public int PickupCount
   {
@@ -15,7 +24,7 @@ public partial class MoneyPool : Area2D
     set
     {
       _pickupCount = value;
-      _label.Text = CollectedMoney.ToString();
+      
       if (PickupCount <= 0)
       {
         CallDeferred("set_monitoring", false);
@@ -39,7 +48,23 @@ public partial class MoneyPool : Area2D
   private void SetupSignals()
   {
     GameManager.Instance.WaveSpawner.WaveCleanup += () => CallDeferred("set_monitoring", true);
-    GameManager.Instance.WaveSpawner.WaveEnded += () => CallDeferred("set_monitoring", false);
+  }
+
+  public int RemoveFromPool(int amount)
+  {
+    int returnedValue;
+    if (CollectedMoney <= amount)
+    {
+      returnedValue = CollectedMoney;
+      CollectedMoney = 0;
+    }
+    else
+    {
+      returnedValue = amount;
+      CollectedMoney -= amount;
+    }
+
+    return returnedValue;
   }
 
   private void OnAreaEntered(Area2D area)
@@ -51,11 +76,4 @@ public partial class MoneyPool : Area2D
       PickupCount--;
     }
   }
-
-  //public void ResetPool()
-  //{
-  //  PickupCount = 0;
-  //  CollectedMoney = 0;
-  //  _label.Text = "0";
-  //}
 }

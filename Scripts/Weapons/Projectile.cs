@@ -30,7 +30,7 @@ public partial class Projectile : Area2D
       OneShot = true
     };
     AddChild(timer);
-    timer.Timeout += () => QueueFree();
+    timer.Timeout += QueueFree;
     // defer call because timer might not be in the scene tree yet
     timer.CallDeferred("start");
   }

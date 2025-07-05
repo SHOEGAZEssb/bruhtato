@@ -43,7 +43,7 @@ public partial class WaveSpawner : Node
 
   private void SetupSignals()
   {
-    GameManager.Instance.MoneyPool.MoneyPoolPickupCompleted += () => EndWave();
+    GameManager.Instance.MoneyPool.MoneyPoolPickupCompleted += EndWave;
   }
 
   public void StartWave(int index)
@@ -54,7 +54,7 @@ public partial class WaveSpawner : Node
       return;
     }
 
-    CurrentWave = index + 1;
+    CurrentWave = index;
     _currentWave = WaveConfig.Waves[index];
 
     _waveUI.SetWave(CurrentWave);

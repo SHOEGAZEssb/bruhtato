@@ -52,7 +52,8 @@ public partial class EnemyBase : CharacterBody2D
     if (MoneyPickupScene == null)
       return;
 
-    var amount = Mathf.FloorToInt(Data.MoneyDrop);
+    // todo int conversion bad?
+    var amount = Mathf.FloorToInt(Data.MoneyDrop + GameManager.Instance.MoneyPool.RemoveFromPool((int)Data.MoneyDrop));
     for (int i = 0; i < amount; i++)
     {
       var pickup = MoneyPickupScene.Instantiate<MoneyPickup>();
