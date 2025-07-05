@@ -8,6 +8,7 @@ public partial class PlayerMovement : Node
   private RunStats _stats;
   private CharacterBody2D _body;
   private float _clampMargin = 0f;
+  private bool _betweenWaves = false;
 
   /// <summary>
   /// Caches reference to parent body on ready.
@@ -28,6 +29,14 @@ public partial class PlayerMovement : Node
       var textureSize = sprite.Texture.GetSize() * sprite.Scale;
       _clampMargin = Mathf.Max(textureSize.X, textureSize.Y) / 2f;
     }
+
+    CallDeferred(nameof(ConnectSignals));
+  }
+
+  private void ConnectSignals()
+  {
+    GameManager.Instance.WaveSpawner.WaveCleanup += () => _betweenWaves = true;
+    GameManager.Instance.WaveSpawner.WaveStarted += (int _) => _betweenWaves = false;
   }
 
   /// <summary>
@@ -35,6 +44,9 @@ public partial class PlayerMovement : Node
   /// </summary>
   public override void _PhysicsProcess(double delta)
   {
+    if (_betweenWaves)
+      return;
+
     var input = Vector2.Zero;
 
     input.X = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");

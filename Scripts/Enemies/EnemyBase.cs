@@ -28,7 +28,6 @@ public partial class EnemyBase : CharacterBody2D
 
   public void ForceRemove()
   {
-    DropMoney();
     QueueFree(); // You could play an animation first if needed
   }
 

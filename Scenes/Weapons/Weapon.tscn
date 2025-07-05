@@ -16,5 +16,3 @@ texture = ExtResource("4_hj41p")
 
 [node name="ShootPoint" type="Marker2D" parent="."]
 position = Vector2(-11, -8)
-
-[node name="FireTimer" type="Timer" parent="."]

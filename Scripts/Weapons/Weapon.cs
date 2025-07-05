@@ -1,7 +1,7 @@
 using Godot;
 
 /// <summary>
-/// Automatically fires projectiles at the nearest enemy.
+/// Automatically fires projectiles at the nearest enemy when off cooldown.
 /// </summary>
 public partial class Weapon : Node2D
 {
@@ -9,37 +9,34 @@ public partial class Weapon : Node2D
   [Export] public PackedScene ProjectileScene;
 
   private Marker2D _shootPoint;
-  private Timer _fireTimer;
+  private float _cooldownRemaining = 0f;
 
   public override void _Ready()
   {
     _shootPoint = GetNode<Marker2D>("ShootPoint");
-    _fireTimer = GetNode<Timer>("FireTimer");
-
-    _fireTimer.WaitTime = 1f / Data.FireRate;
-    _fireTimer.Timeout += TryShoot;
-    _fireTimer.Start();
-
     GetNode<Sprite2D>("Sprite2D").Texture = Data.Sprite;
   }
 
   public override void _Process(double delta)
   {
-    var target = FindNearestEnemy(); // or cache this per timer if expensive
+    _cooldownRemaining -= (float)delta;
+
+    var target = FindNearestEnemy();
     if (target != null)
     {
       var dir = (target.GlobalPosition - GlobalPosition).Normalized();
       Rotation = dir.Angle();
+
+      if (_cooldownRemaining <= 0f)
+      {
+        Fire(target);
+        _cooldownRemaining = GetCooldown();
+      }
     }
   }
 
-
-  private void TryShoot()
+  private void Fire(Node2D target)
   {
-    var target = FindNearestEnemy();
-    if (target == null)
-      return;
-
     var direction = Transform.X.Normalized();
 
     var projectile = ProjectileScene.Instantiate<Projectile>();
@@ -70,4 +67,17 @@ public partial class Weapon : Node2D
 
     return nearest;
   }
+
+  private float GetCooldown()
+  {
+    var attackSpeed = GameManager.Instance.RunStats.GetStat(StatType.AttackSpeed);
+    var multiplier = 1f + (attackSpeed / 100f);
+
+    // prevent zero or negative cooldown (e.g., if attackSpeed = -100 or worse)
+    multiplier = Mathf.Max(multiplier, 0.05f); // allows up to -95% speed
+
+    return 1f / (Data.FireRate * multiplier);
+  }
+
+
 }
